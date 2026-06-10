@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #2E7D4E;
+    @apply text-slate-800 antialiased font-sans overflow-x-hidden;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(210, 30, 32, 0.12) 0, transparent 45%),
+      radial-gradient(at 100% 0%, rgba(255, 255, 255, 0.08) 0, transparent 45%),
+      linear-gradient(to bottom, #1b5334, #2E7D4E, #1b5334);
+    background-attachment: fixed;
+  }
+}
+
+/* Premium SPIL Light Card Panel Utilities */
+.glass-panel {
+  @apply bg-white border border-slate-200/90 rounded-2xl;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+.glass-panel-interactive {
+  @apply glass-panel hover:border-slate-300 transition-all duration-300;
+}
+.glass-panel-interactive:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+}
+
+/* Custom light-theme scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-all;
+}
+
+/* Animated warning pulses */
+@keyframes border-pulse {
+  0%, 100% {
+    border-color: rgba(210, 30, 32, 0.4);
+    box-shadow: 0 0 0 0 rgba(210, 30, 32, 0.15);
+  }
+  50% {
+    border-color: rgba(210, 30, 32, 1);
+    box-shadow: 0 0 8px 2px rgba(210, 30, 32, 0.25);
+  }
+}
+
+.animate-border-pulse {
+  animation: border-pulse 1.8s infinite ease-in-out;
+}
+
+/* Container stripe patterns (Clean light-mode contrast) */
+.dry-pattern {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(15, 23, 42, 0.02) 0px,
+    rgba(15, 23, 42, 0.02) 6px,
+    rgba(255, 255, 255, 0.3) 6px,
+    rgba(255, 255, 255, 0.3) 12px
+  );
+}
+
+.reefer-pattern {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(15, 23, 42, 0.02) 0px,
+    rgba(15, 23, 42, 0.02) 6px,
+    rgba(14, 165, 233, 0.04) 6px,
+    rgba(14, 165, 233, 0.04) 12px
+  );
+}
+
+/* Custom animations */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes bounce-horizontal {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-bounce-horizontal {
+  animation: bounce-horizontal 1s infinite;
+}
+
+/* High-contrast SPIL Brand Color Classes */
+.bg-spil-green {
+  background-color: #2E7D4E !important;
+}
+.bg-spil-green-hover:hover, .hover\:bg-spil-green-hover:hover {
+  background-color: #225D3A !important;
+}
+.text-spil-green {
+  color: #2E7D4E !important;
+}
+.border-spil-green {
+  border-color: #2E7D4E !important;
+}
+.bg-spil-green-light {
+  background-color: #DCFCE7 !important;
+}
+
+.bg-spil-red {
+  background-color: #D21E20 !important;
+}
+.bg-spil-red-hover:hover, .hover\:bg-spil-red-hover:hover {
+  background-color: #B5181A !important;
+}
+.text-spil-red {
+  color: #D21E20 !important;
+}
+.border-spil-red {
+  border-color: #D21E20 !important;
+}
+.bg-spil-red-light {
+  background-color: #FEE2E2 !important;
+}
+
+.border-l-spil-green {
+  border-left-color: #2E7D4E !important;
+}
+.border-l-spil-red {
+  border-left-color: #D21E20 !important;
+}
