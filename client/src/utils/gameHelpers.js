@@ -59,3 +59,52 @@ export const getLaterPorts = (port) => {
     ports[(idx + 3) % ports.length]
   ];
 };
+
+export const createEmptyGrid = () => {
+  const grid = {};
+  BAYS.forEach(bay => {
+    grid[bay] = {};
+    const config = getBayConfig(bay);
+    config.rows.forEach(row => {
+      grid[bay][row] = {};
+      config.tiers.forEach(tier => {
+        grid[bay][row][tier] = null;
+      });
+    });
+  });
+  return grid;
+};
+
+export const validateGridPhysics = (grid) => {
+  const errors = [];
+  
+  BAYS.forEach(bay => {
+    const config = getBayConfig(bay);
+    config.rows.forEach(row => {
+      const stack = grid[bay][row];
+      
+      // 1. Container Type matching Bay slot type
+      config.tiers.forEach(tier => {
+        const container = stack[tier];
+        if (container) {
+          if (config.containerType === 'REEFER' && container.containerType !== 'REEFER') {
+            errors.push(`Slot Bay ${bay}, Row ${row}, Tier ${tier} hanya menerima kontainer REEFER, tetapi berisi DRY.`);
+          }
+          if (config.containerType === 'DRY' && container.containerType !== 'DRY') {
+            errors.push(`Slot Bay ${bay}, Row ${row}, Tier ${tier} hanya menerima kontainer DRY, tetapi berisi REEFER.`);
+          }
+        }
+      });
+      
+      // 2. Stacking rule: Tier 84 requires Tier 82 in the same row
+      if (stack['84'] && !stack['82']) {
+        errors.push(`Kesalahan Fisika Kapal: Kontainer di Bay ${bay}, Row ${row}, Tier 84 melayang. Dibutuhkan Tier 82.`);
+      }
+    });
+  });
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+};
